@@ -1,10 +1,9 @@
 from flask import Flask
+import requests
 from flask import render_template
 from flask import url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import json
-import torch
 app= Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///test.db'
 db=SQLAlchemy(app)
@@ -36,14 +35,8 @@ actual_class=["Healty_potato"]
 
 @app.route('/',methods=['POST','GET'])
 def index():
-    # Predict on custom image
-    x = pred_and_plot_image(model=model,
-                        image_path=custom_image_path,
-                        class_names=class_names)
-
-    return json.dumps({"predicted_class":x[0],"with_probabilty":x[1]})
-    
-    
+    return  render_template('index.html')
 if __name__=="__main__":
     app.run(debug=True)
+
     
